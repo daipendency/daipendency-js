@@ -1,6 +1,6 @@
 {
   "name": "@daipendency/core-darwin-universal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "os": [
     "darwin"
   ],
@@ -8,8 +8,13 @@
   "files": [
     "core.darwin-universal.node"
   ],
+  "description": "JS binding for Daipendency",
   "license": "MIT",
   "engines": {
     "node": ">= 10"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/daipendency/daipendency-js"
 }
