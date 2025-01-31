@@ -48,23 +48,5 @@
     "universal": "napi universal",
     "version": "napi version"
   },
-  "packageManager": "yarn@4.6.0",
-  "optionalDependencies": {
-    "@daipendency/core-win32-x64-msvc": "1.0.1",
-    "@daipendency/core-darwin-x64": "1.0.1",
-    "@daipendency/core-linux-x64-gnu": "1.0.1",
-    "@daipendency/core-darwin-arm64": "1.0.1",
-    "@daipendency/core-android-arm64": "1.0.1",
-    "@daipendency/core-linux-arm64-gnu": "1.0.1",
-    "@daipendency/core-linux-arm64-musl": "1.0.1",
-    "@daipendency/core-win32-arm64-msvc": "1.0.1",
-    "@daipendency/core-linux-arm-gnueabihf": "1.0.1",
-    "@daipendency/core-linux-arm-musleabihf": "1.0.1",
-    "@daipendency/core-linux-x64-musl": "1.0.1",
-    "@daipendency/core-freebsd-x64": "1.0.1",
-    "@daipendency/core-win32-ia32-msvc": "1.0.1",
-    "@daipendency/core-android-arm-eabi": "1.0.1",
-    "@daipendency/core-darwin-universal": "1.0.1",
-    "@daipendency/core-linux-riscv64-gnu": "1.0.1"
-  }
+  "packageManager": "yarn@4.6.0"
 }
