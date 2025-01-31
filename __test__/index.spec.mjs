@@ -1,7 +1,15 @@
 import test from 'ava'
 
-import { sum } from '../index.js'
+import { Library, Language } from '../index.js'
 
-test('sum from native', (t) => {
-  t.is(sum(1, 2), 3)
-})
+test('Load dependency', async (t) => {
+  const library = await Library.loadDependency('tokio', '.', Language.Rust);
+
+  t.is(library.name, 'tokio');
+});
+
+test('Load library', async (t) => {
+  const library = await Library.load('./', Language.Rust);
+
+  t.is(library.name, 'daipendency_core');
+});

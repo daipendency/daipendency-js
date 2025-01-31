@@ -1,6 +1,6 @@
 {
   "name": "@daipendency/core",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
@@ -29,7 +29,7 @@
     "ava": "^6.0.1"
   },
   "ava": {
-    "timeout": "3m"
+    "timeout": "1m"
   },
   "engines": {
     "node": ">= 10"
