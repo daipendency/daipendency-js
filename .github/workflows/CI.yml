@@ -3,6 +3,7 @@ env:
   DEBUG: napi:*
   APP_NAME: core
   MACOSX_DEPLOYMENT_TARGET: '10.13'
+  NODE_VERSION: '20'
 permissions:
   contents: write
   id-token: write
@@ -57,7 +58,7 @@ jobs:
               sudo apt-get update
               sudo apt-get install gcc-riscv64-linux-gnu -y
             build: yarn build --target riscv64gc-unknown-linux-gnu
-    name: stable - ${{ matrix.settings.target }} - node@20
+    name: stable - ${{ matrix.settings.target }} - node@${{ env.NODE_VERSION }}
     runs-on: ${{ matrix.settings.host }}
     steps:
       - uses: actions/checkout@v4
@@ -65,7 +66,7 @@ jobs:
         uses: actions/setup-node@v4
         if: ${{ !matrix.settings.docker }}
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       - name: Enable corepack for yarn
         run: corepack enable
       - name: Install
@@ -112,7 +113,7 @@ jobs:
           path: ${{ env.APP_NAME }}.*.node
           if-no-files-found: error
   test-macOS-windows-binding:
-    name: Test bindings on ${{ matrix.settings.target }} - node@${{ matrix.node }}
+    name: Test bindings on ${{ matrix.settings.target }} - node@${{ env.NODE_VERSION }}
     needs:
       - build
     strategy:
@@ -123,16 +124,13 @@ jobs:
             target: x86_64-apple-darwin
           - host: windows-latest
             target: x86_64-pc-windows-msvc
-        node:
-          - '18'
-          - '20'
     runs-on: ${{ matrix.settings.host }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ env.NODE_VERSION }}
           architecture: x64
       - name: Enable corepack for yarn
         run: corepack enable
@@ -149,22 +147,18 @@ jobs:
       - name: Test bindings
         run: yarn test
   test-linux-x64-gnu-binding:
-    name: Test bindings on Linux-x64-gnu - node@${{ matrix.node }}
+    name: Test bindings on Linux-x64-gnu - node@${{ env.NODE_VERSION }}
     needs:
       - build
     strategy:
       fail-fast: false
-      matrix:
-        node:
-          - '18'
-          - '20'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ env.NODE_VERSION }}
       - name: Enable corepack for yarn
         run: corepack enable
       - name: Install dependencies
@@ -178,17 +172,13 @@ jobs:
         run: ls -R .
         shell: bash
       - name: Test bindings
-        run: docker run --rm -v $(pwd):/build -w /build node:${{ matrix.node }}-slim yarn test
+        run: docker run --rm -v $(pwd):/build -w /build node:${{ env.NODE_VERSION }}-slim yarn test
   test-linux-aarch64-gnu-binding:
-    name: Test bindings on aarch64-unknown-linux-gnu - node@${{ matrix.node }}
+    name: Test bindings on aarch64-unknown-linux-gnu - node@${{ env.NODE_VERSION }}
     needs:
       - build
     strategy:
       fail-fast: false
-      matrix:
-        node:
-          - '18'
-          - '20'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -215,22 +205,18 @@ jobs:
       - name: Setup and run tests
         uses: addnab/docker-run-action@v3
         with:
-          image: node:${{ matrix.node }}-slim
+          image: node:${{ env.NODE_VERSION }}-slim
           options: '--platform linux/arm64 -v ${{ github.workspace }}:/build -w /build'
           run: |
             set -e
             yarn test
             ls -la
   test-linux-arm-gnueabihf-binding:
-    name: Test bindings on armv7-unknown-linux-gnueabihf - node@${{ matrix.node }}
+    name: Test bindings on armv7-unknown-linux-gnueabihf - node@${{ env.NODE_VERSION }}
     needs:
       - build
     strategy:
       fail-fast: false
-      matrix:
-        node:
-          - '18'
-          - '20'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -256,7 +242,7 @@ jobs:
       - name: Setup and run tests
         uses: addnab/docker-run-action@v3
         with:
-          image: node:${{ matrix.node }}-bullseye-slim
+          image: node:${{ env.NODE_VERSION }}-bullseye-slim
           options: '--platform linux/arm/v7 -v ${{ github.workspace }}:/build -w /build'
           run: |
             set -e
@@ -272,7 +258,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       - name: Enable corepack for yarn
         run: corepack enable
       - name: Install dependencies
@@ -309,7 +295,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
       - name: Enable corepack for yarn
         run: corepack enable
       - name: Install dependencies
