@@ -2,9 +2,12 @@ import test from 'ava'
 
 import { Library, Language } from '../index.js'
 
-test('Load dependency', {
-  skip: process.platform === 'win32', // This hangs intermittently on CI
-}, async (t) => {
+test('Load dependency', async (t) => {
+  if (process.platform === 'win32') {
+    t.pass('Skipped on Windows, where it hangs intermittently on CI');
+    return;
+  }
+
   const library = await Library.loadDependency('tokio', '.', Language.Rust);
 
   t.is(library.name, 'tokio');
