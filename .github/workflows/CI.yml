@@ -145,7 +145,7 @@ jobs:
         run: ls -R .
         shell: bash
       - name: Test bindings
-        run: docker run --rm -v $(pwd):/build -w /build node:${{ env.NODE_VERSION }}-slim npm test
+        run: npm test
   test-linux-x64-gnu-binding:
     name: Test bindings on Linux-x64-gnu
     needs:
