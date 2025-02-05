@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-daipendency = "1.2.4"
+daipendency = "1.2.5"
 # Default enable napi4 feature, see https://nodejs.org/api/n-api.html#node-api-version-matrix
 napi = { version = "2.12.2", default-features = false, features = ["napi4", "async"] }
 napi-derive = "2.12.2"
